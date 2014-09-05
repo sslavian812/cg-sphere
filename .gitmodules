@@ -1,0 +1,3 @@
+[submodule "3rdparty/geometry"]
+	path = 3rdparty/geometry
+	url = https://github.com/khovanskiy/Geometry2.git
