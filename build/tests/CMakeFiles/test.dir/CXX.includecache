@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/has_intersection.h
+segment.h
+../include/segment.h
+point.h
+../include/point.h
+my_orientation.h
+../include/my_orientation.h
+
+../include/my_orientation.h
+point.h
+../include/point.h
+boost/numeric/interval.hpp
+-
+gmpxx.h
+-
+boost/optional.hpp
+-
+
+../include/point.h
+math.h
+-
+
+../include/segment.h
+boost/array.hpp
+-
+point.h
+../include/point.h
+
+/home/viacheslav/cg-course/sphere/tests/orientation_test.cpp
+gtest/gtest.h
+-
+point.h
+-
+has_intersection.h
+-
+algorithm
+-
+

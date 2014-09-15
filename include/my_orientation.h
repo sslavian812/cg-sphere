@@ -1,7 +1,6 @@
 /// author: Viacheslav
 
-#ifndef ORIENTATION_H
-#define ORIENTATION_H
+#pragma once
 
 #include "point.h"
 #include <boost/numeric/interval.hpp>
@@ -12,6 +11,8 @@
 using boost::numeric::interval;
 
 typedef boost::numeric::interval_lib::unprotect<boost::numeric::interval<double> >::type intervalD;
+typedef Point3D<intervalD> Point3DI;
+typedef Point3D<mpq_class> Point3DM;
 
 enum orientation_t
 {
@@ -27,6 +28,7 @@ inline bool opposite(orientation_t a, orientation_t b)
 
   return a == -b;
 }
+
 
 
 struct orientation_floating_point
@@ -51,13 +53,13 @@ struct orientation_floating_point
 
 struct orientation_interval
 {
-  boost::optional<orientation_t> operator() (Point3d const & a, Point3d const & b, Point3d const & c) const
+  boost::optional<orientation_t> operator() (Point3DI const & a, Point3DI const & b, Point3DI const & c) const
   {
      //boost::numeric::interval<double>::traits_type::rounding _;
 
-     intervalD p1 =  intervalD(a.x)*(intervalD(b.y)*intervalD(c.z) - intervalD(b.z)*intervalD(c.y));
-     intervalD p2 =  intervalD(a.y)*(intervalD(b.x)*intervalD(c.z) - intervalD(b.z)*intervalD(c.x));
-     intervalD p3 =  intervalD(intervalD(a.z)*(intervalD(b.x)*intervalD(c.y) - intervalD(b.y)*intervalD(c.x)));
+     intervalD p1 =  a.x*(b.y*c.z - b.z*c.y);
+     intervalD p2 =  a.y*(b.x*c.z - b.z*c.x);
+     intervalD p3 =  a.z*(b.x*c.y - b.y*c.x);
 
      intervalD res = p1 - p2 + p3;
 
@@ -74,13 +76,14 @@ struct orientation_interval
   }
 };
 
+
 struct orientation_rational
 {
-  boost::optional<orientation_t> operator() (Point3d const & a, Point3d const & b, Point3d const & c) const
+  boost::optional<orientation_t> operator() (Point3DM const & a, Point3DM const & b, Point3DM const & c) const
   {
-     mpq_class p1 =  mpq_class(a.x)*(mpq_class(b.y)*mpq_class(c.z) - mpq_class(b.z)*mpq_class(c.y));
-     mpq_class p2 =  mpq_class(a.y)*(mpq_class(b.x)*mpq_class(c.z) - mpq_class(b.z)*mpq_class(c.x));
-     mpq_class p3 =  mpq_class(a.z)*(mpq_class(b.x)*mpq_class(c.y) - mpq_class(b.y)*mpq_class(c.x));
+     mpq_class p1 =  a.x*(b.y*c.z - b.z*c.y);
+     mpq_class p2 =  a.y*(b.x*c.z - b.z*c.x);
+     mpq_class p3 =  a.z*(b.x*c.y - b.y*c.z);
 
      mpq_class res = p1 - p2 + p3;
 
@@ -93,19 +96,50 @@ struct orientation_rational
         return CG_RIGHT;
 
      return CG_COLLINEAR;
-  }
+  };
 };
 
+/*
 
+// сделать ориентацию от четырех точек,
+// чтобы в аргументах функции не вычетать даблы
+// отнимать уже в этом куске кода
 inline orientation_t orientation(Point3d const & a, Point3d const & b, Point3d const & c,int multiplyer = 18)
 {
   if (boost::optional<orientation_t> v = orientation_floating_point()(a, b, c, multiplyer))
      return *v;
 
-  if (boost::optional<orientation_t> v = orientation_interval()(a, b, c))
+    Point3D<intervalD>p1((intervalD)a.x, (intervalD)a.y, (intervalD)a.z);
+    Point3D<intervalD>p2((intervalD)b.x, (intervalD)b.y, (intervalD)b.z);
+    Point3D<intervalD>p3((intervalD)c.x, (intervalD)c.y, (intervalD)c.z);
+
+  if (boost::optional<orientation_t> v = orientation_interval()(p1, p2, p3))
      return *v;
 
   return *(orientation_rational()(a, b, c));
 }
 
-#endif // ORIENTATION_H
+*/
+
+
+// 4-opints oriantation here!
+inline orientation_t orientation(Point3d const & a, Point3d const & b, Point3d const & c, Point3d const & d)
+{
+    if (boost::optional<orientation_t> v = orientation_floating_point()(a-d, b-d, c-d, 23)) // ??
+        return *v;
+
+    Point3DI p1i((intervalD)a.x-(intervalD)d.x, (intervalD)a.y-(intervalD)d.y, (intervalD)a.z-(intervalD)d.z);
+    Point3DI p2i((intervalD)b.x-(intervalD)d.x, (intervalD)b.y-(intervalD)d.y, (intervalD)b.z-(intervalD)d.z);
+    Point3DI p3i((intervalD)c.x-(intervalD)d.x, (intervalD)c.y-(intervalD)d.y, (intervalD)c.z-(intervalD)d.z);
+
+    if (boost::optional<orientation_t> v = orientation_interval()(p1i, p2i, p3i))
+        return *v;
+
+    Point3DM p1m(mpq_class(a.x)-mpq_class(d.x), mpq_class(a.y)-mpq_class(d.y), mpq_class(a.z)-mpq_class(d.z));
+    Point3DM p2m(mpq_class(b.x)-mpq_class(d.x), mpq_class(b.y)-mpq_class(d.y), mpq_class(b.z)-mpq_class(d.z));
+    Point3DM p3m(mpq_class(c.x)-mpq_class(d.x), mpq_class(c.y)-mpq_class(d.y), mpq_class(c.z)-mpq_class(d.z));
+
+    return *(orientation_rational()(p1m, p2m, p3m));
+}
+
+

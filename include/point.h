@@ -1,8 +1,6 @@
 /// author: Viacheslav
 
-#ifndef POINT_H
-#define POINT_H
-
+#pragma once
 
 #include<math.h>
 
@@ -93,19 +91,38 @@ bool operator != (Point3D<T> const & a, Point3D<T> const & b)
 }
 
 template <class T>
+Point3D<T>  operator-=(Point3D<T> & a, Point3D<T> const & b)
+{
+  a.x-=b.x;
+  a.y-=b.y;
+  a.z-=b.z;
+  return a;
+}
+
+template <class T>
+Point3D<T>  operator+=(Point3D<T> & a, Point3D<T> const & b)
+{
+  a.x+=b.x;
+  a.y+=b.y;
+  a.z+=b.z;
+  return a;
+}
+
+template <class T>
 Point3D<T>  operator+(Point3D<T> const & a, Point3D<T> const & b)
 {
-  return Point3D<T>(a.x+b.x, a.y+b.y, a.z+b.z);
+  Point3D<T>c = a;
+  c+=b;
+  return c;
 }
 
 template <class T>
 Point3D<T>  operator-(Point3D<T> const & a, Point3D<T> const & b)
 {
-  return Point3D<T>(a.x-b.x, a.y-b.y, a.z-b.z);
+    Point3D<T>c = a;
+    c-=b;
+    return c;
 }
-
-
-#endif // POINT_H
 
 
 
