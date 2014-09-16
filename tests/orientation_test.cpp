@@ -16,9 +16,7 @@ TEST(orienation, in_the_same_square)
 {
 
     Point3D<double> a(1, 0, 0), b(0, 1, 0), c(0, 0, 1), d(0, 0, -1), z(0.0,0.0,0.0);
-    Point3D<double> p[5] = {a, b, c, d, z};
 
-    //EXPECT_TRUE(orientation(p[0], p[1], p[2], p[3]) == orientation_t::CG_COLLINEAR);
     EXPECT_TRUE(orientation(a, b, z, d) != orientation(a, b, z, c));
     EXPECT_TRUE(orientation(a, b, c, z) == orientation(a, b, c, d));
 

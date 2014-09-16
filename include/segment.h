@@ -1,8 +1,5 @@
-/// author: Viacheslav
+#pragma once
 
-
-#ifndef SEGMENT_H
-#define SEGMENT_H
 
 #include <boost/array.hpp>
 #include "point.h"
@@ -44,4 +41,4 @@ Point3D<T> const & min(Segment3D<T> const & seg) { return std::min(seg[0], seg[1
 template <class T>
 Point3D<T> const & max(Segment3D<T> const & seg) { return std::max(seg[0], seg[1]); }*/
 
-#endif // SEGMENT_H
+

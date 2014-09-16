@@ -1,5 +1,3 @@
-/// author: Viacheslav
-
 #pragma once
 
 #include <segment.h>
@@ -7,8 +5,8 @@
 #include <my_orientation.h>
 
 
-#include<iostream>
-using namespace std;
+//#include<iostream>
+//using namespace std;
 
 
 template<class T>
@@ -22,12 +20,12 @@ bool has_intersection(Segment3D<T> const & sa, Segment3D<T> const & sb)
     ab[1] = orientation(a, b, d, z);
 
 
-    cout<<ab[0] << " " <<ab[1]<<endl;
+    //cout<<ab[0] << " " <<ab[1]<<endl;
 
 
     if (ab[0] == ab[1] && ab[0] == CG_COLLINEAR)
     {
-        cout<<"BIG CYCLE case!!"<<endl;
+  //      cout<<"BIG CYCLE case!!"<<endl;
         // segments are on one big circle
         Point3d n1(a.y*b.z - a.z*b.y,
                  -a.x*b.z + a.z*b.x,
@@ -62,7 +60,7 @@ bool has_intersection(Segment3D<T> const & sa, Segment3D<T> const & sb)
     if(((t1 == t2) && (t3 == t4) && (t5 == t6) && (t7 == t8)))
     {
         // in different hemispheres
-        cout<<"DIFFERENT hEMISPHERE case"<<endl;
+      //  cout<<"DIFFERENT hEMISPHERE case"<<endl;
         return false;
     }
 
@@ -70,12 +68,12 @@ bool has_intersection(Segment3D<T> const & sa, Segment3D<T> const & sb)
 
     // simple case
 
-    cout<<"SIMPLE case"<<endl;
+    //cout<<"SIMPLE case"<<endl;
 
     if (ab[0] == ab[1])
        return false;
 
-    cout<<"SIMPLE case part 2"<<endl;
+   // cout<<"SIMPLE case part 2"<<endl;
 
     orientation_t cd[2];
     cd[0] = orientation(c, d, a, z);

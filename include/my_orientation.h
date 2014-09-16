@@ -1,5 +1,3 @@
-/// author: Viacheslav
-
 #pragma once
 
 #include "point.h"
@@ -33,13 +31,14 @@ inline bool opposite(orientation_t a, orientation_t b)
 
 struct orientation_floating_point
 {
-  boost::optional<orientation_t> operator() (Point3d const & a, Point3d const & b, Point3d const &  c, int multiplyer = 18) const
+  boost::optional<orientation_t> operator() (Point3d const & a, Point3d const & b, Point3d const &  c, int multiplyer = 23) const
   {
      double p1 =  a.x*(b.y*c.z - b.z*c.y);
      double p2 =  a.y*(b.x*c.z - b.z*c.x);
      double p3 =  a.z*(b.x*c.y - b.y*c.x);
      double res = p1 - p2 + p3;
-     double eps = (fabs(p1) + fabs(p2) + fabs(p3)) * multiplyer * std::numeric_limits<double>::epsilon(); // множитель аналогичными выкладками как в викиконспектах
+     double eps = (fabs(p1) + fabs(p2) + fabs(p3)) * multiplyer * std::numeric_limits<double>::epsilon();
+       // multiplyer like in neerc.ifmo.ru/wiki
 
      if (res > eps)
         return CG_LEFT;
@@ -104,7 +103,7 @@ struct orientation_rational
 // 4-opints oriantation here!
 inline orientation_t orientation(Point3d const & a, Point3d const & b, Point3d const & c, Point3d const & d)
 {
-    if (boost::optional<orientation_t> v = orientation_floating_point()(a-d, b-d, c-d, 23)) // ??
+    if (boost::optional<orientation_t> v = orientation_floating_point()(a-d, b-d, c-d, 23))
         return *v;
 
     Point3DI p1i((intervalD)a.x-(intervalD)d.x, (intervalD)a.y-(intervalD)d.y, (intervalD)a.z-(intervalD)d.z);
