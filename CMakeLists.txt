@@ -24,19 +24,14 @@ endif()
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Gui REQUIRED)
 find_package(Qt5OpenGL REQUIRED)
-include_directories(include ${QT_USE_FILE})
 
-
-add_subdirectory(include)
-add_subdirectory(tests)
-add_subdirectory(visualisation)
+#include_directories(include ${QT_USE_FILE}) 
 
 add_subdirectory(3rdparty/geometry)
 include_directories(include 3rdparty/geometry/headers)
 
 find_package(Boost REQUIRED)
 include_directories(include ${Boost_INCLUDE_DIR})
-
 
 find_package(GMP REQUIRED)
 include_directories(include ${GMP_INCLUDE_DIR})
@@ -63,5 +58,9 @@ include_directories(include ${GTEST_INCLUDE_DIR})
 #target_link_libraries(${PROJECT_NAME} ${QT_LIBRARIES})
 #target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
 #target_link_libraries(${PROJECT_NAME} Geometry2)
+
+add_subdirectory(include)
+add_subdirectory(tests)
+add_subdirectory(visualisation)
 
 

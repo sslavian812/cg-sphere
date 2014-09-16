@@ -1,4 +1,4 @@
-#include "exampleclass.h"
+#include "example.h"
 
 #include <point.h>
 #include <has_intersection.h>
@@ -16,7 +16,7 @@ const double M45 = PI/4;
 const double M135 = 3*PI/4;
 
 
-ExampleClass::ExampleClass()
+Example::Example()
 {
     setLineSegments(20);
     setSpaceSegments(35);
@@ -26,8 +26,6 @@ ExampleClass::ExampleClass()
     const double kRadius = getRadius();
     const Point3d N = getDecart(0.0, Grinvich, kRadius);
     const Point3d S = getDecart(PI, Grinvich, kRadius);
-
-
 
 
     // просто отрезки (в том числе в разных полушариях)

@@ -96,30 +96,9 @@ struct orientation_rational
         return CG_RIGHT;
 
      return CG_COLLINEAR;
-  };
+  }
 };
 
-/*
-
-// сделать ориентацию от четырех точек,
-// чтобы в аргументах функции не вычетать даблы
-// отнимать уже в этом куске кода
-inline orientation_t orientation(Point3d const & a, Point3d const & b, Point3d const & c,int multiplyer = 18)
-{
-  if (boost::optional<orientation_t> v = orientation_floating_point()(a, b, c, multiplyer))
-     return *v;
-
-    Point3D<intervalD>p1((intervalD)a.x, (intervalD)a.y, (intervalD)a.z);
-    Point3D<intervalD>p2((intervalD)b.x, (intervalD)b.y, (intervalD)b.z);
-    Point3D<intervalD>p3((intervalD)c.x, (intervalD)c.y, (intervalD)c.z);
-
-  if (boost::optional<orientation_t> v = orientation_interval()(p1, p2, p3))
-     return *v;
-
-  return *(orientation_rational()(a, b, c));
-}
-
-*/
 
 
 // 4-opints oriantation here!

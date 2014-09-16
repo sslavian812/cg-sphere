@@ -11,6 +11,7 @@ find_package(GMP REQUIRED)
 include_directories(include ${GMP_INCLUDE_DIR})
 
 set(SOURCES orientation_test.cpp)
+set(SOURCES ${SOURCES} segments_intersection_test.cpp)
 
 add_executable(test ${SOURCES})
 target_link_libraries(test ${GTEST_BOTH_LIBRARIES} ${GMP_LIBRARIES})

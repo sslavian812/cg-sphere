@@ -1,6 +1,0 @@
-/home/viacheslav/cg-course/sphere/build/3rdparty/geometry/CMakeFiles/Geometry2.dir
-/home/viacheslav/cg-course/sphere/build/3rdparty/geometry/CMakeFiles/Geometry2_automoc.dir
-/home/viacheslav/cg-course/sphere/build/visualisation/CMakeFiles/example.dir
-/home/viacheslav/cg-course/sphere/build/include/CMakeFiles/sphere_headers.dir
-/home/viacheslav/cg-course/sphere/build/tests/CMakeFiles/test.dir
-/home/viacheslav/cg-course/sphere/build/tests/CMakeFiles/test_headers.dir
