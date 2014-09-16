@@ -39,26 +39,6 @@ include_directories(include ${GMP_INCLUDE_DIR})
 find_package(GTest REQUIRED)
 include_directories(include ${GTEST_INCLUDE_DIR})
 
-#add_executable(${PROJECT_NAME} ${SRC})
-
-
-# Add qt modules (IMPORTTANT! this must be after add_executable)
-#qt5_use_modules(${PROJECT} Core Gui Widgets OpenGL)
-
-# Fix OpenGL "undefined reference" problem
-#if( WIN32 )
-#    target_link_libraries(${PROJECT} OpenGL32)
-#else()
-#    target_link_libraries(${PROJECT} GL)
-#endif()
-
-#target_link_libraries(${PROJECT_NAME} ${GMP_LIBRARIES})
-#target_link_libraries(${PROJECT_NAME} ${GTEST_BOTH_LIBRARIES})
-#target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES})
-#target_link_libraries(${PROJECT_NAME} ${QT_LIBRARIES})
-#target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
-#target_link_libraries(${PROJECT_NAME} Geometry2)
-
 add_subdirectory(include)
 add_subdirectory(tests)
 add_subdirectory(visualisation)
